@@ -6,39 +6,39 @@ const bcrypt = require("bcrypt");
 class User {
   constructor(user) {
     this.id = user.id;
-    this.nome = user.nome;
+    this.name = user.name;
     this.email = user.email;
     this.hashPassword = user.hashPassword;
 
-    this.valida();
+    this.validation();
   }
 
-  async adiciona() {
+  async add() {
     if (await User.findByEmail(this.email)) {
-      throw new InvalidArgumentError('O usuário já existe!');
+      throw new InvalidArgumentError('User already exists!');
     }
 
-    return usersDao.adiciona(this);
+    return usersDao.add(this);
   }
 
   async addPassword(password) {
-    validations.campoStringNaoNulo(password, 'senha');
-    validations.campoTamanhoMinimo(password, 'senha', 8);
-    validations.campoTamanhoMaximo(password, 'senha', 64);
+    validations.textFieldNotNull(password, 'password');
+    validations.fieldMinimumLength(password, 'password', 8);
+    validations.fieldMaximumLength(password, 'password', 64);
     this.hashPassword = await User.generateHashPassword(password);
   }
 
-  valida() {
-    validations.campoStringNaoNulo(this.nome, 'nome');
-    validations.campoStringNaoNulo(this.email, 'email');
+  validation() {
+    validations.textFieldNotNull(this.name, 'name');
+    validations.textFieldNotNull(this.email, 'email');
   }
   
-  async deleta() {
-    return usersDao.deleta(this);
+  async delete() {
+    return usersDao.delete(this);
   }
   
   static async findById(id) {
-    const user = await usersDao.buscaPorId(id);
+    const user = await usersDao.findById(id);
     if (!user) {
       return null;
     }
@@ -47,7 +47,7 @@ class User {
   }
   
   static async findByEmail(email) {
-    const user = await usersDao.buscaPorEmail(email);
+    const user = await usersDao.findByEmail(email);
     if (!user) {
       return null;
     }
@@ -55,8 +55,8 @@ class User {
     return new User(user);
   }
 
-  static lista() {
-    return usersDao.lista();
+  static list() {
+    return usersDao.list();
   }
 
   static async generateHashPassword(password) {

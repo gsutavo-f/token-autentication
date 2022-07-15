@@ -8,8 +8,8 @@ module.exports = app => {
 
   app
     .route('/user')
-    .post(usersController.adiciona)
-    .get(usersController.lista);
+    .post(usersController.add)
+    .get(usersController.list);
 
-  app.route('/user/:id').delete(usersController.deleta);
+  app.route('/user/:id').delete(usersController.delete);
 };

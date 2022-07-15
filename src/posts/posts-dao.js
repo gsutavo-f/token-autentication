@@ -1,31 +1,29 @@
 const db = require('../../database');
 
 module.exports = {
-   adiciona: post => {
+   add: post => {
       return new Promise((resolve, reject) => {
          db.run(`
             INSERT INTO posts (
-                titulo, 
-                conteudo
+                title, 
+                content
             ) VALUES (?, ?)
-      `, [post.titulo, post.conteudo], erro => {
-            if (erro) {
-               return reject('Erro ao adicionar o post!');
+      `, [post.title, post.content], error => {
+            if (error) {
+               return reject('Error adding post!');
             }
-
             return resolve();
          });
       });
    },
 
-   lista: () => {
+   list: () => {
       return new Promise((resolve, reject) => {
-         db.all(`SELECT * FROM posts`, (erro, resultados) => {
-            if (erro) {
-               return reject('Erro ao listar os posts!');
+         db.all(`SELECT * FROM posts`, (error, results) => {
+            if (error) {
+               return reject('Error listing posts!');
             }
-
-            return resolve(resultados);
+            return resolve(results);
          });
       });
    }

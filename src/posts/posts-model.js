@@ -3,25 +3,25 @@ const validations = require('../common-validations');
 
 class Post {
   constructor(post) {
-    this.titulo = post.titulo;
-    this.conteudo = post.conteudo;
-    this.valida();
+    this.title = post.title;
+    this.content = post.content;
+    this.validation();
   }
 
-  adiciona() {
-    return postsDao.adiciona(this);
+  add() {
+    return postsDao.add(this);
   }
 
-  valida() {
-    validations.campoStringNaoNulo(this.titulo, 'título');
-    validations.campoTamanhoMinimo(this.titulo, 'título', 5);
+  validation() {
+    validations.textFieldNotNull(this.title, 'title');
+    validations.fieldMinimumLength(this.title, 'title', 5);
 
-    validations.campoStringNaoNulo(this.conteudo, 'conteúdo');
-    validations.campoTamanhoMaximo(this.conteudo, 'conteúdo', 140);
+    validations.textFieldNotNull(this.content, 'content');
+    validations.fieldMaximumLength(this.content, 'content', 140);
   }
 
-  static lista() {
-    return postsDao.lista();
+  static list() {
+    return postsDao.list();
   }
 }
 

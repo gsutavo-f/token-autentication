@@ -2,18 +2,18 @@ const User = require('./users-model');
 const { InvalidArgumentError, InternalServerError } = require('../errors');
 
 module.exports = {
-  adiciona: async (req, res) => {
-    const { nome, email, password } = req.body;
+  add: async (req, res) => {
+    const { name, email, password } = req.body;
 
     try {
       const user = new User({
-        nome,
+        name,
         email
       });
 
       await user.addPassword(password);
 
-      await user.adiciona();
+      await user.add();
 
       res.status(201).json();
     } catch (error) {
@@ -31,15 +31,15 @@ module.exports = {
     res.status(204).json();
   },
 
-  lista: async (req, res) => {
-    const users = await User.lista();
+  list: async (req, res) => {
+    const users = await User.list();
     res.json(users);
   },
 
-  deleta: async (req, res) => {
+  delete: async (req, res) => {
     const user = await User.findById(req.params.id);
     try {
-      await user.deleta();
+      await user.delete();
       res.status(200).send();
     } catch (error) {
       res.status(500).json({ error: error });
