@@ -3,14 +3,15 @@ const { InvalidArgumentError, InternalServerError } = require('../errors');
 
 module.exports = {
   adiciona: async (req, res) => {
-    const { nome, email, senha } = req.body;
+    const { nome, email, password } = req.body;
 
     try {
       const user = new User({
         nome,
-        email,
-        senha
+        email
       });
+
+      await user.addPassword(password);
 
       await user.adiciona();
 
@@ -32,7 +33,7 @@ module.exports = {
   },
 
   deleta: async (req, res) => {
-    const user = await User.buscaPorId(req.params.id);
+    const user = await User.findById(req.params.id);
     try {
       await user.deleta();
       res.status(200).send();
