@@ -32,7 +32,6 @@ class User {
     validations.campoStringNaoNulo(this.nome, 'nome');
     validations.campoStringNaoNulo(this.email, 'email');
   }
-
   
   async deleta() {
     return usersDao.deleta(this);

@@ -27,6 +27,10 @@ module.exports = {
     }
   },
 
+  login: (req, res) => {
+    res.status(204).json();
+  },
+
   lista: async (req, res) => {
     const users = await User.lista();
     res.json(users);
