@@ -6,7 +6,7 @@ function createJWTToken(user) {
   const payload = {
     id: user.id
   };
-  return jwt.sign(payload, 'secret-password');
+  return jwt.sign(payload, process.env.JWT_KEY);
 }
 
 module.exports = {
