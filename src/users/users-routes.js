@@ -10,6 +10,13 @@ module.exports = app => {
       );
 
    app
+      .route('/user/logout')
+      .get(
+         middlewaresAuthentication.bearer,
+         usersController.logout
+      );
+
+   app
       .route('/user')
       .post(usersController.add)
       .get(usersController.list);
